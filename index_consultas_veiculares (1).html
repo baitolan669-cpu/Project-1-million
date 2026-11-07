@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#090b10">
+<title>Consultas Veiculares</title>
+
+<style>
+:root {
+    --bg: #090b10;
+    --panel: #151a23;
+    --text: #f5f7fa;
+    --muted: #aab3c2;
+    --accent: #159ee8;
+}
+
+* { box-sizing: border-box; }
+
+html { min-height: 100%; }
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    color: var(--text);
+    background:
+        radial-gradient(ellipse at 50% 0%, rgba(21,158,232,.12), transparent 45%),
+        linear-gradient(180deg, #11151d 0%, var(--bg) 55%, #07080c 100%);
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.topbar {
+    height: 72px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 5.5%;
+    border-bottom: 1px solid rgba(255,255,255,.07);
+    background: rgba(5,7,11,.72);
+}
+
+.brand {
+    color: #fff;
+    font-size: 19px;
+    font-weight: 800;
+    letter-spacing: 1.3px;
+    text-transform: uppercase;
+}
+
+.brand span { color: var(--accent); }
+
+.top-label {
+    color: #aab3c2;
+    font-size: 12px;
+    letter-spacing: .7px;
+    text-transform: uppercase;
+}
+
+main {
+    width: min(1240px, 100%);
+    margin: 0 auto;
+    padding: 76px 34px 70px;
+}
+
+.intro {
+    text-align: center;
+    margin-bottom: 48px;
+}
+
+.eyebrow {
+    display: inline-block;
+    margin-bottom: 15px;
+    color: #69c8ff;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2.4px;
+    text-transform: uppercase;
+}
+
+h1 {
+    margin: 0;
+    color: #fff;
+    font-size: clamp(30px, 4.5vw, 49px);
+    line-height: 1.08;
+    letter-spacing: -.9px;
+}
+
+.intro p {
+    max-width: 560px;
+    margin: 15px auto 0;
+    color: var(--muted);
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+.cards {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    gap: clamp(22px, 4vw, 54px);
+}
+
+.service-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+    min-width: 280px;
+    max-width: 440px;
+    min-height: 390px;
+    overflow: hidden;
+    color: #fff;
+    text-decoration: none;
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: 15px;
+    background: #141a24;
+    box-shadow: 0 18px 50px rgba(0,0,0,.35);
+    transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+    isolation: isolate;
+}
+
+.service-card:hover {
+    transform: translateY(-7px);
+    border-color: rgba(66,184,255,.65);
+    box-shadow: 0 24px 65px rgba(0,0,0,.5), 0 0 28px rgba(21,158,232,.12);
+}
+
+.art {
+    position: relative;
+    min-height: 250px;
+    flex: 1;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+}
+
+.art::before,
+.art::after {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(1px);
+}
+
+.vehicle-art {
+    background:
+        radial-gradient(ellipse at 50% 65%, rgba(0,164,255,.35), transparent 52%),
+        linear-gradient(140deg, #152d42, #101722 60%, #090e16);
+}
+
+.vehicle-art::before {
+    width: 270px;
+    height: 270px;
+    border: 1px solid rgba(90,194,255,.22);
+    box-shadow: 0 0 0 24px rgba(90,194,255,.035), 0 0 0 52px rgba(90,194,255,.025);
+}
+
+.vehicle-art::after {
+    width: 180px;
+    height: 180px;
+    background: rgba(0,155,240,.12);
+    filter: blur(45px);
+}
+
+.document-art {
+    background:
+        radial-gradient(ellipse at 50% 65%, rgba(27,206,164,.22), transparent 54%),
+        linear-gradient(140deg, #163b3a, #111c25 60%, #0a1118);
+}
+
+.document-art::before {
+    width: 270px;
+    height: 270px;
+    border: 1px solid rgba(96,236,199,.2);
+    box-shadow: 0 0 0 24px rgba(96,236,199,.035), 0 0 0 52px rgba(96,236,199,.025);
+}
+
+.document-art::after {
+    width: 180px;
+    height: 180px;
+    background: rgba(20,205,161,.12);
+    filter: blur(45px);
+}
+
+.art svg {
+    position: relative;
+    z-index: 1;
+    width: min(68%, 220px);
+    height: auto;
+    filter: drop-shadow(0 18px 22px rgba(0,0,0,.35));
+    transition: transform .3s ease;
+}
+
+.service-card:hover .art svg { transform: scale(1.06); }
+
+.card-content {
+    padding: 23px 25px 25px;
+    background: linear-gradient(180deg, rgba(17,22,31,.95), #11151d);
+}
+
+.card-kicker {
+    display: block;
+    margin-bottom: 9px;
+    color: #72caff;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.7px;
+    text-transform: uppercase;
+}
+
+.document-card .card-kicker { color: #6de0bd; }
+
+.card-content h2 {
+    margin: 0;
+    font-size: 23px;
+    letter-spacing: -.3px;
+}
+
+.card-content p {
+    margin: 10px 0 18px;
+    color: #aeb8c6;
+    font-size: 13px;
+    line-height: 1.55;
+}
+
+.card-action {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.card-action span {
+    display: inline-grid;
+    place-items: center;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: var(--accent);
+    font-size: 15px;
+}
+
+.document-card .card-action span { background: #16a985; }
+
+footer {
+    padding: 25px 20px 30px;
+    color: #697586;
+    text-align: center;
+    font-size: 11px;
+}
+
+@media (max-width: 760px) {
+    main { padding: 55px 20px 45px; }
+    .cards { flex-direction: column; align-items: center; }
+    .service-card {
+        width: min(100%, 440px);
+        min-width: 0;
+        min-height: 350px;
+    }
+    .art { min-height: 215px; }
+    .intro { margin-bottom: 32px; }
+    .top-label { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { transition: none !important; }
+}
+</style>
+</head>
+
+<body>
+<header class="topbar">
+    <div class="brand">CONSULTAS <span>VEICULARES</span></div>
+    <div class="top-label">Central de serviços</div>
+</header>
+
+<main>
+    <section class="intro">
+        <span class="eyebrow">Bem-vindo</span>
+        <h1>Consultas Veiculares</h1>
+        <p>Escolha o serviço que deseja acessar.</p>
+    </section>
+
+    <section class="cards" aria-label="Serviços disponíveis">
+
+        <!-- Altere o href para o endereço da página de consulta veicular -->
+        <a class="service-card vehicle-card" href="consulta-completa.html">
+            <div class="art vehicle-art">
+                <svg viewBox="0 0 320 220" role="img" aria-label="Ilustração de automóvel">
+                    <defs>
+                        <linearGradient id="carPaint" x1="0" y1="0" x2="1" y2="1">
+                            <stop offset="0" stop-color="#65d1ff"/>
+                            <stop offset=".55" stop-color="#168bd0"/>
+                            <stop offset="1" stop-color="#07518d"/>
+                        </linearGradient>
+                        <linearGradient id="glass" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0" stop-color="#bcecff"/>
+                            <stop offset="1" stop-color="#35647f"/>
+                        </linearGradient>
+                    </defs>
+                    <ellipse cx="160" cy="184" rx="112" ry="13" fill="#02070d" opacity=".55"/>
+                    <path d="M54 139 L68 103 Q73 91 91 87 L119 48 Q126 38 143 38 H205 Q220 38 229 51 L258 94 Q276 100 281 116 L286 151 Q286 165 271 168 H49 Q35 165 38 151 L41 143 Q44 138 54 139Z" fill="url(#carPaint)" stroke="#91dcff" stroke-width="3"/>
+                    <path d="M91 88 L124 50 Q130 45 143 45 H169 V91Z" fill="url(#glass)" stroke="#a7e6ff" stroke-width="3"/>
+                    <path d="M179 45 H204 Q214 45 221 56 L245 91 H179Z" fill="url(#glass)" stroke="#a7e6ff" stroke-width="3"/>
+                    <path d="M174 45 V94" stroke="#0b4770" stroke-width="5"/>
+                    <path d="M51 128 Q160 116 276 128" fill="none" stroke="#b8eaff" stroke-width="3" opacity=".65"/>
+                    <path d="M43 143 H75 M251 143 H281" stroke="#d8f5ff" stroke-width="7" stroke-linecap="round"/>
+                    <circle cx="91" cy="164" r="23" fill="#080d14" stroke="#9bb4c5" stroke-width="5"/>
+                    <circle cx="91" cy="164" r="9" fill="#5c7d92"/>
+                    <circle cx="235" cy="164" r="23" fill="#080d14" stroke="#9bb4c5" stroke-width="5"/>
+                    <circle cx="235" cy="164" r="9" fill="#5c7d92"/>
+                    <path d="M119 105 H203" stroke="#e3f8ff" stroke-width="2" opacity=".35"/>
+                </svg>
+            </div>
+            <div class="card-content">
+                <span class="card-kicker">Serviço 01</span>
+                <h2>Consulta Veicular</h2>
+                <p>Consulte dados cadastrais, débitos, restrições e informações do veículo.</p>
+                <span class="card-action">Acessar consulta <span>→</span></span>
+            </div>
+        </a>
+
+        <!-- Altere o href para o endereço da página de CRLV -->
+        <a class="service-card document-card" href="crlv.html">
+            <div class="art document-art">
+                <svg viewBox="0 0 260 230" role="img" aria-label="Ilustração de documento veicular">
+                    <defs>
+                        <linearGradient id="paper" x1="0" y1="0" x2="1" y2="1">
+                            <stop offset="0" stop-color="#ffffff"/>
+                            <stop offset="1" stop-color="#dcebe9"/>
+                        </linearGradient>
+                    </defs>
+                    <g transform="rotate(-7 130 112)">
+                        <rect x="57" y="24" width="146" height="184" rx="12" fill="#07110f" opacity=".35" transform="translate(7 9)"/>
+                        <rect x="57" y="24" width="146" height="184" rx="12" fill="url(#paper)" stroke="#a8d8ce" stroke-width="2"/>
+                        <rect x="75" y="43" width="110" height="18" rx="4" fill="#d2e8e2"/>
+                        <circle cx="87" cy="52" r="4" fill="#169c7e"/>
+                        <path d="M99 52 H173" stroke="#6b9c90" stroke-width="4" stroke-linecap="round"/>
+                        <path d="M77 82 H183 M77 94 H162 M77 106 H174" stroke="#9bb8b0" stroke-width="4" stroke-linecap="round"/>
+                        <rect x="77" y="122" width="106" height="37" rx="5" fill="#e5f2ee"/>
+                        <path d="M87 135 H145 M87 146 H165" stroke="#8aafa4" stroke-width="4" stroke-linecap="round"/>
+                        <path d="M77 175 H128 M77 186 H155" stroke="#9bb8b0" stroke-width="4" stroke-linecap="round"/>
+                        <circle cx="169" cy="179" r="17" fill="#16a985"/>
+                        <path d="M160 179 L167 186 L179 171" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                    </g>
+                </svg>
+            </div>
+            <div class="card-content">
+                <span class="card-kicker">Serviço 02</span>
+                <h2>CRLV</h2>
+                <p>Acesse a área de serviços e informações relacionadas ao documento do veículo.</p>
+                <span class="card-action">Acessar CRLV <span>→</span></span>
+            </div>
+        </a>
+
+    </section>
+</main>
+
+<footer>Consultas Veiculares</footer>
+</body>
+</html>
