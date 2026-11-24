@@ -1,117 +1,80 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Consultas Veiculares</title>
 <style>
-*{box-sizing:border-box}
-body{margin:0;background:#fff;color:#10243a;font-family:Arial,Helvetica,sans-serif}
-.wrap{max-width:1100px;margin:auto;padding:24px 22px 50px}
-.top{display:flex;align-items:center;gap:14px;margin:0 0 54px 140px;font-size:14px;font-weight:600;color:#173b65}
-.logo{width:40px;height:40px;border-radius:8px;background:#f7f9fc;display:grid;place-items:center;overflow:hidden}.logo img{display:block}
-.cards{display:grid;grid-template-columns:repeat(2,minmax(260px,352px));gap:54px;margin-left:30px}
-.card{display:block;text-decoration:none;color:inherit;background:#fff;border:1px solid #dce5ee;border-radius:16px;overflow:hidden;box-shadow:0 15px 35px rgba(20,40,60,.10);transition:transform .2s,box-shadow .2s}
-.card:hover{transform:translateY(-4px);box-shadow:0 18px 40px rgba(20,40,60,.15)}
-.art{height:250px;display:flex;align-items:center;justify-content:center;color:white}
+*{box-sizing:border-box} body{margin:0;background:#fff;font-family:Arial,Helvetica,sans-serif;color:#17263b}
+.site-header{height:72px;border-bottom:1px solid #edf0f4;box-shadow:0 2px 8px rgba(20,40,60,.04);display:flex;align-items:center}
+.header-inner{width:min(1450px,calc(100% - 64px));margin:auto;display:flex;align-items:center;justify-content:space-between}
+.brand{display:flex;align-items:center;gap:16px;font-size:15px;font-weight:800;color:#064a88;letter-spacing:.3px}
+.brand img{width:38px;height:38px;object-fit:contain} .header-label{font-size:10px;letter-spacing:1.1px;color:#72839a}
+main{max-width:1100px;margin:0 auto;padding:42px 24px 0}
+.hero{text-align:center;max-width:680px;margin:0 auto}
+.tag{display:inline-block;background:#eaf3ff;color:#1765b5;border-radius:20px;padding:7px 13px;font-size:10px;font-weight:700;letter-spacing:1.2px}
+.hero h1{font-size:34px;line-height:1.2;margin:14px 0 10px;font-weight:750;color:#17263b}
+.hero-desc{font-size:14px;line-height:1.65;color:#65788f;max-width:600px;margin:0 auto}
+.slogan{display:flex;justify-content:center;align-items:center;gap:12px;margin:26px auto 38px;font-size:12px;font-weight:700;color:#173d67}
+.slogan img{width:24px;height:24px;object-fit:contain}
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,350px));justify-content:center;gap:44px}
+.card{display:block;text-decoration:none;color:inherit;background:#fff;border:1px solid #e1e8f0;border-radius:15px;overflow:hidden;box-shadow:0 12px 32px rgba(20,40,60,.09);transition:transform .2s,box-shadow .2s}
+.card:hover{transform:translateY(-3px);box-shadow:0 16px 36px rgba(20,40,60,.13)}
+.art{height:200px;display:flex;align-items:center;justify-content:center}
 .vehicle-art{background:radial-gradient(circle at 50% 50%,#12476b 0,#0c2538 58%,#07131d 100%)}
 .crlv-art{background:radial-gradient(circle at 50% 50%,#12524a 0,#0b2929 58%,#07151a 100%)}
-.art svg{width:210px;height:180px}
-.content{padding:24px 26px 28px}
-.eyebrow{font-size:10px;letter-spacing:2px;color:#4199ff;margin-bottom:10px}
-.crlv-card .eyebrow{color:#19b990}
-h2{font-size:23px;margin:0 0 12px;color:#10243a}
-.desc{font-size:14px;line-height:1.65;color:#526a83;margin:0 0 22px}
-.access{font-size:13px;font-weight:600;color:#0755a1;display:flex;align-items:center;gap:10px}
-.arrow{width:26px;height:26px;border-radius:50%;background:#1260a8;color:#fff;display:grid;place-items:center}
+.art svg{width:210px;height:175px}
+.content{padding:20px 22px 23px} .eyebrow{font-size:9px;letter-spacing:1.8px;font-weight:700;color:#4298ff;margin-bottom:8px}
+.crlv-card .eyebrow{color:#20b990} h2{font-size:20px;margin:0 0 8px;color:#13243a}
+.desc{font-size:12px;line-height:1.6;color:#60758d;margin:0 0 18px}
+.access{font-size:12px;font-weight:700;color:#0755a1;display:flex;align-items:center;gap:9px}
+.arrow{width:22px;height:22px;border-radius:50%;background:#1260a8;color:#fff;display:grid;place-items:center;font-size:12px}
 .crlv-card .arrow{background:#19ad8c}
-footer{text-align:center;margin-top:95px;color:#71849a;font-size:11px}
-#crlv-aviso{display:flex;position:fixed;inset:0;background:rgba(8,22,36,0);backdrop-filter:blur(0);z-index:9999;align-items:center;justify-content:center;padding:20px;visibility:hidden;opacity:0;pointer-events:none;transition:opacity .28s ease,background .28s ease,backdrop-filter .28s ease,visibility .28s}
-#crlv-aviso.ativo{visibility:visible;opacity:1;pointer-events:auto;background:rgba(8,22,36,.68);backdrop-filter:blur(6px)}
-.aviso-box{background:white;color:#203248;width:100%;max-width:620px;padding:44px 34px 35px;border-radius:22px;text-align:center;box-shadow:0 25px 80px rgba(0,0,0,.28);transform:translateY(24px) scale(.94);opacity:0;transition:transform .38s cubic-bezier(.2,.8,.2,1),opacity .3s ease;border:1px solid rgba(255,255,255,.7)}
-#crlv-aviso.ativo .aviso-box{transform:translateY(0) scale(1);opacity:1}
-.triste{font-size:88px;margin-bottom:14px;display:inline-block;animation:carinha .65s cubic-bezier(.2,.8,.2,1) both}
-@keyframes carinha{0%{transform:scale(.4) rotate(-15deg);opacity:0}65%{transform:scale(1.12) rotate(4deg)}100%{transform:scale(1) rotate(0);opacity:1}}
-.aviso-box h2{font-size:30px;line-height:1.2;margin-bottom:20px}
-.aviso-box p{font-size:18px;line-height:1.65;margin:12px 0;color:#526477}
-.aviso-box button{margin-top:18px;padding:13px 30px;border:0;border-radius:10px;background:#1260a8;color:#fff;font-size:16px;font-weight:600;cursor:pointer}
-.aviso-box button:hover{background:#084b88;transform:translateY(-2px);box-shadow:0 8px 18px rgba(18,96,168,.25)}
-.aviso-box button{transition:transform .18s,box-shadow .18s,background .18s}
-@media(prefers-reduced-motion:reduce){#crlv-aviso,.aviso-box,.triste,.aviso-box button{transition:none!important;animation:none!important}}
-@media(max-width:800px){.top{margin:0 0 35px 0}.cards{margin:0;grid-template-columns:1fr;gap:25px;max-width:430px;margin:auto}.art{height:230px}footer{margin-top:50px}}
-@media(max-width:450px){.wrap{padding:20px 16px 35px}.aviso-box{padding:35px 22px}.aviso-box h2{font-size:25px}.aviso-box p{font-size:16px}}
-</style>
-</head>
+footer{text-align:center;margin-top:78px;color:#73849a;font-size:10px;padding-bottom:45px}
+#crlv-aviso{display:none;position:fixed;inset:0;background:rgba(8,22,36,.68);backdrop-filter:blur(5px);z-index:9999;align-items:center;justify-content:center;padding:20px}
+.aviso-box{background:#fff;color:#203248;width:100%;max-width:620px;padding:42px 34px 34px;border-radius:20px;text-align:center;box-shadow:0 20px 65px rgba(0,0,0,.25);animation:entrada .32s cubic-bezier(.2,.8,.2,1)}
+@keyframes entrada{0%{transform:translateY(25px) scale(.94);opacity:0}100%{transform:translateY(0) scale(1);opacity:1}}
+.triste{font-size:82px;margin-bottom:12px;animation:emoji .45s ease-out} @keyframes emoji{0%{transform:scale(.6) rotate(-10deg);opacity:0}100%{transform:scale(1) rotate(0);opacity:1}}
+.aviso-box h2{font-size:28px;line-height:1.25;margin:0 0 18px} .aviso-box p{font-size:17px;line-height:1.65;margin:12px 0;color:#526477}
+.aviso-box button{margin-top:18px;padding:13px 28px;border:0;border-radius:10px;background:#1260a8;color:#fff;font-size:15px;font-weight:700;cursor:pointer;transition:transform .15s,background .15s}
+.aviso-box button:hover{background:#084b88;transform:translateY(-2px)}
+@media(max-width:760px){.header-inner{width:calc(100% - 32px)}.header-label{display:none}main{padding:35px 16px 0}.hero h1{font-size:28px}.cards{grid-template-columns:minmax(0,420px);gap:24px}.art{height:190px}.slogan{margin:23px auto 30px;font-size:11px}footer{margin-top:50px}}
+@media(max-width:420px){.aviso-box{padding:32px 20px}.aviso-box h2{font-size:24px}.aviso-box p{font-size:16px}}
+</style></head>
 <body>
-<div class="wrap">
-  <header class="top">
-    <div class="logo" aria-label="Símbolo"><img src="data:image/png;base64,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" alt="Símbolo" style="width:100%;height:100%;object-fit:contain;border-radius:8px;"></div>
-    <div>Praticidade, informação e facilidade para cuidar do seu veículo.</div>
-  </header>
-
-  <main class="cards">
-    <a class="card vehicle-card" href="/consultas/">
-      <div class="art vehicle-art" aria-hidden="true">
-        <svg viewBox="0 0 240 180" fill="none">
-          <ellipse cx="120" cy="143" rx="88" ry="15" fill="#06131c"/>
-          <path d="M42 117 57 89 83 57c6-9 13-12 25-12h47c12 0 18 4 25 14l22 31 13 8 8 17c3 9-2 17-12 17H39c-10 0-14-7-12-16l6-12 9-1Z" fill="#2196d2" stroke="#83d5ff" stroke-width="3"/>
-          <path d="M70 84 91 58c4-6 10-9 19-9h42c9 0 13 3 18 10l19 25H70Z" fill="#9bdfff" stroke="#b9ecff" stroke-width="2"/>
-          <path d="M111 50v34M155 50l17 34" stroke="#166b9b" stroke-width="4"/>
-          <path d="M42 117h169M37 108l12-2M205 104l8 3" stroke="#b6e8ff" stroke-width="2"/>
-          <circle cx="68" cy="132" r="22" fill="#1b2c3a"/><circle cx="68" cy="132" r="13" fill="#9bb4c3"/><circle cx="68" cy="132" r="7" fill="#223d50"/>
-          <circle cx="183" cy="132" r="22" fill="#1b2c3a"/><circle cx="183" cy="132" r="13" fill="#9bb4c3"/><circle cx="183" cy="132" r="7" fill="#223d50"/>
-        </svg>
-      </div>
-      <div class="content">
-        <div class="eyebrow">SERVIÇO 01</div>
-        <h2>Consulta Veicular</h2>
-        <p class="desc">Consulte dados cadastrais, débitos, restrições e informações do veículo.</p>
-        <div class="access">Acessar consulta <span class="arrow">→</span></div>
-      </div>
-    </a>
-
-    <a class="card crlv-card" href="#" onclick="abrirAvisoCRLV();return false;">
-      <div class="art crlv-art" aria-hidden="true">
-        <svg viewBox="0 0 240 180" fill="none">
-          <g transform="rotate(-7 120 90)">
-            <rect x="54" y="28" width="126" height="146" rx="12" fill="#071b20" opacity=".45"/>
-            <rect x="46" y="20" width="126" height="146" rx="12" fill="#eff9f6" stroke="#9bd5c7" stroke-width="3"/>
-            <rect x="62" y="36" width="94" height="17" rx="4" fill="#cfe8e1"/>
-            <circle cx="72" cy="44" r="4" fill="#18a58a"/>
-            <path d="M83 44h63M62 70h92M62 82h82M62 94h83" stroke="#91b8ad" stroke-width="4" stroke-linecap="round"/>
-            <rect x="62" y="107" width="75" height="30" rx="5" fill="#dff1eb"/>
-            <path d="M72 117h47M72 127h38M62 147h45M62 156h38" stroke="#91b8ad" stroke-width="4" stroke-linecap="round"/>
-          </g>
-          <circle cx="169" cy="134" r="17" fill="#12ad8b"/>
-          <path d="m160 134 6 6 12-14" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </div>
-      <div class="content">
-        <div class="eyebrow">SERVIÇO 02</div>
-        <h2>CRLV</h2>
-        <p class="desc">Acesse a área de serviços e informações relacionadas ao documento do veículo.</p>
-        <div class="access">Acessar CRLV <span class="arrow">→</span></div>
-      </div>
-    </a>
-  </main>
-  <footer>Consultas Veiculares · Serviços e informações em um só lugar</footer>
-</div>
-
-<div id="crlv-aviso" role="dialog" aria-modal="true" aria-labelledby="aviso-titulo">
-  <div class="aviso-box">
-    <div class="triste">😔</div>
-    <h2 id="aviso-titulo">CRLV INDISPONÍVEL NO MOMENTO</h2>
-    <p>Infelizmente, no momento não estamos conseguindo realizar a emissão do CRLV.</p>
-    <p>Para obter ajuda com a emissão do seu documento, recomendamos procurar um despachante veicular.</p>
-    <p>Pedimos desculpas pelo transtorno.</p>
-    <button type="button" onclick="fecharAvisoCRLV()">FECHAR</button>
-  </div>
-</div>
+<header class="site-header"><div class="header-inner">
+<div class="brand"><img src="data:image/png;base64,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" alt="Símbolo"><span>CONSULTAS VEICULARES</span></div>
+<div class="header-label">CENTRAL DE SERVIÇOS</div>
+</div></header>
+<main>
+<section class="hero"><span class="tag">BEM-VINDO À CENTRAL DE SERVIÇOS</span>
+<h1>Consultas Veiculares</h1>
+<p class="hero-desc">Informações e serviços veiculares reunidos em um só lugar. Acesse de forma prática, rápida e com uma experiência simples e intuitiva.</p>
+</section>
+<div class="slogan"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALAAAACUCAYAAAAziqN+AAAKhElEQVR42u2de3BUVx3Hv/t+ZJMNCQmEBFymZAiPJBhChZKUYJ2m0g7YinakdqwO1tYHFSsMHXWsFjvtjCgWZgqOU6Z0xBHtdICZCCIjFmi1WEyAsQmPJI0JgWyWsGz2ee/e9Y8lTWgIhG3I7jn3+5nJHyTL3b33fvbc3/md3znHEA6HE3a7HYSIRiQSgZGXgYgMBSYUmBAKTAgFJhSYEApMCAUmhAITCkwIBSaEAhNCgQkFJoQCE0KBCQUmhAITQoEJocCEAhNCgQmhwIRQYEKBCaHAhFBgQigwocCEUGBCKDChwIRQYELGH7OeTjYYVuC9Errh3wL9UWS7bAj0R296DH9IGdX7DCWqxEd+bSg27HdRVYPNbERU1Ub8fzazEVMn56Ck0AVPkZsC64FD/+7Ar3eduuXr+qIjC+e/iVQfp1259lotMeSZZ7j+3wCgJm58gPhN3stmgsdmgifLgnyHGZWzJ+KpL1WiwO3QlcAGPe2R8audx/HsH5sBl+UTBF2GW79GS4z9MW/0HkO/DNE44Ith2T2T8NLqapRNnwiLWe4IUVd7ZATDCvr6woDFmLzxqf6MVsixPuZI0g8cw2EGSpxoaOlDxdN/wZZd76O9289OnCyEYio+8EUAk+Sn7DAD+TY8+/sP8J3Nx3DqbA8FloGLPQG8ebYPMBvkP1mjAcizoeGcHxUbDuHAP9spsOj4QwrgjaT+yBYRqxEwG/DA0wdxtKmLAovMuc4rgElH8g5tjctyUPvTw1JKrAuBFVVD4/nLgMME3WIy4vFN70jXsdNNC3y4sQew6VhgqxHtQRVf+NHf4PWHKbBIxJQ4mjr6oXusRjR1BbHp9eMUWCSyHBbsWFudHPG63UEG2ciz4eW9bdLEw7oJIZ54cA72fP/uGw/l6g23FZtf/48UoYQuBF66dh8MM7dhxcZjg/LqWWKrEW+29GH3gRYKLALtvghQNQHIs10/fKtnie1mvPb2h8JnJXRRjbb3J0uG/e50qw+rXmsaLIrRYSt84qwf7568IHQ5pq6q0YaJfeQ8Vmw9rk+BASCmAVYjEn94VMiPH4lE5G+BjzZ1oanFe+MOuduGqgIHTnjDum2F0RnC0aYu1FQWM4TIRP504AxeafgQyBphEMNl0W8LDACFdmzb10yBM5FgWEHXxSAQid/kRdf+Fk8ATlOyo6ezVvjYmcsIhhVkOSzCfXypY2BF1dDlDdxyntt1HbtXTySHnPXSKl/LxOz57gIsr72LMXAmYTEbb6uHXV5aCABY9dtGAIlkjCg7RgMQVtHU4hVOYIDT6ofxlfpZ2L9uESrdVv3kiU1GdHUHhs2mZgycZvYeOY+G9zphtwx+TyPKzWcV94dVuBxmTLCZgKCiD4HNBhy/FEJrZ99HTyEKnAEduEPvdmD7XzsAVwqnOVB6qZOBjhOd/bjgC6G8lC1wRuC9EsI/mi8DthSjpKFrQyia3Ok2owEIx3FZwOIeaQUuLsjGG8/VjsmxTrf6kh07M+SV2GxA96V+KKom1HoS0gpsMRvHLJ4rLy1EntuBB146lpyWL2N2wmLEGW8IMSUulMDMQoyS+oUe7N+wGPPsJjmzEyYjWjqvIhRTGUJkSiduJFK9SVWzJuGZVXPw9Z2n5OvcmQ3JslPGwJlBzeq3kJtjvXOdHgk7cu2X2InLjAyEP4zG8wFguuvOPO5l7ciF4giGYkKtcCmlwC3tlwdzv3quNEuB0daNUOA7yEf1vzFtHK+kQfwvi4ArF0kp8NmLASybXzCu79lwzi9Fnng0K9BT4DvM5jW14/6eR5u6UPvzt6GbKrZM6XvyEowNNZXF2L9uUTJPPJ6hyxjjdloosF6pX+jBlvWL4ckyc/EUhhCpcepsD94/44UtTcOhWU4r6isLsf2dC4BVsHg4nkC2y0aB08nuhmZs/PP55Py2dOEwJZf6ZxaCAt8OXn8Y3qtRoNDOjlQq5NuQ5bQK9ZGlusvBUAzHL4X0sQ/GWBPTUFXkZAucTjp7+nGi+UpqMzDGg0ye7RzXsGCSE06rmQKnC7fTgjX3T4PDnpkrse9v9KLJH8vM8EbRUFyUDavFRIHTRdn0iXjxezUZ+/mWNnVhw5b30BiJZ57EagIzprqF291TKoEtZmNG34D6hR5MyXeiYt1BQMuw2gmzAXkC7rPMrvo4U15aiCM/q8M8szFzRuy0BConOTEl30mBya2pqSzGlvWLk4unZILEagIzSrIxuTCbApPRS7z1mYVARE3/sHNcw6x8u1CF7BQ4QyRu+91yoF9Jb0tsMmJ2WYGQ15ACpxlPkRsnN9ejrtCRnpZYS2Ce3YRFFVOEvH7SZCF+/PLfYbCLuxPn1XTVIagJ5OZZhd0nQwqB27v9+MXBjswdgRsN6Rqli6hYudQj7GWTQuCT53qT8jp0senSGDf9Kr5cP1PYjy9FDNzU4k0u+URuj5iGuuqJQmYfpBK4qztAGVPBF8XaR2YLfQrCC+z1h9HbF2UJZQqtb9XcCaiYMZECp5OLPQH4wiqFTKHz9o17PyX0Lp1SdOLaLgZwuCMAWHQQA49VpuJa7cO9n54i/CURXmCbxYTHFk2BSwcZiO1HOsdG4mgcC+8uEm4/jBuh672SRYz37//2vk9WT6wlgH4FPbtWCp19AJL7xDH3JBAFbgd2Pl+XHHZONe73RbH1a+XCyytNJ05vlJcW4pUf3IN5WZbbr52IaagrdQs9cEGBJZH4rV/WJ3dSGm0Vm5YAIipeeGqBNK0vBRYYT5Ebba8+lCyKH004EY1j06Nl+MycIqmuAwUWXOI3nqtFXVHWzVtiLYGqEhceXzFXuEmbzELogPZuPx7+4QE0qtrwFJuWAM4E0HP4q1KFDgNZCGEFVlQNzW29tBdAtsuGzp5+1K4/BOTZrpe3X8GRFz+Lmspi6c47EomIO5DR3NaLikW7gbkuGgwkt9T9uLxqArvWVEsp7wDCCny61QfMz7n+ppFBfFHsWFuNlffNlPo0hRX4Xy29yWVMyfCY91IEO9YtwBMPzpH+dIUV+HBjT7IugAwS0wCzAXteqMXy2rt0ccpCChwMKzBE49wDbihhFVUlLvzmm3LHvFII3NrZN/i41LvEWgLwRVFXnofdz39OulSZlAKfbvVl5gqPaWh1YTNh65OVePKRCukGKaQV+Nz//EBcg24HEsMqoGhYs6QEqx+eI0Vdr24EVlQNvZfD+rxb18KFZfML8K2HZuK+6mnIcligZ4QTuMsbwDlfWB/T6AfKJdUE0BOBZ7oL2zYuQU1lse7FFVbgzp5+/Lc7KOcs5AFho3FA0YAcK75YlIUZnhw89vkyXYcK0ggcDCtovxAC3FYAgu6GGR9SOaZoyRY2ngDcVtRNc6HG48bkohzMmJbL1lY2gaNKHFVluZiclfk31WEbfnnt1uTgi8thRq7FgMJcB4omuTB1cg7cTguyXTYU5Dop7SgRrhpNUTVpLr4e015jiZDVaLzpZCi0gVBgQigwIRSYUGBCKDAhFJgQCkwoMCEUmBAKTAgFJhSYEApMCAUmFJgQCkwIBSaEAhMKTAgFJoQCE0KBCQUmhAITQoEJocCEAhNCgQmhwIQCEyIo/wf9yly67BJUJwAAAABJRU5ErkJggg==" alt="">Praticidade, informação e facilidade para cuidar do seu veículo.</div>
+<section class="cards">
+<a class="card vehicle-card" href="/consultas/">
+<div class="art vehicle-art" aria-hidden="true"><svg viewBox="0 0 240 180" fill="none">
+<ellipse cx="120" cy="143" rx="88" ry="15" fill="#06131c"/>
+<path d="M42 117 57 89 83 57c6-9 13-12 25-12h47c12 0 18 4 25 14l22 31 13 8 8 17c3 9-2 17-12 17H39c-10 0-14-7-12-16l6-12 9-1Z" fill="#2196d2" stroke="#83d5ff" stroke-width="3"/>
+<path d="M70 84 91 58c4-6 10-9 19-9h42c9 0 13 3 18 10l19 25H70Z" fill="#9bdfff" stroke="#b9ecff" stroke-width="2"/><path d="M111 50v34M155 50l17 34" stroke="#166b9b" stroke-width="4"/>
+<path d="M42 117h169M37 108l12-2M205 104l8 3" stroke="#b6e8ff" stroke-width="2"/>
+<circle cx="68" cy="132" r="22" fill="#1b2c3a"/><circle cx="68" cy="132" r="13" fill="#9bb4c3"/><circle cx="68" cy="132" r="7" fill="#223d50"/>
+<circle cx="183" cy="132" r="22" fill="#1b2c3a"/><circle cx="183" cy="132" r="13" fill="#9bb4c3"/><circle cx="183" cy="132" r="7" fill="#223d50"/></svg></div>
+<div class="content"><div class="eyebrow">SERVIÇO 01</div><h2>Consulta Veicular</h2><p class="desc">Consulte dados cadastrais, débitos, restrições e informações do veículo.</p><div class="access">Acessar consulta <span class="arrow">→</span></div></div>
+</a>
+<a class="card crlv-card" href="#" onclick="abrirAvisoCRLV();return false;">
+<div class="art crlv-art" aria-hidden="true"><svg viewBox="0 0 240 180" fill="none">
+<g transform="rotate(-7 120 90)"><rect x="54" y="28" width="126" height="146" rx="12" fill="#071b20" opacity=".45"/><rect x="46" y="20" width="126" height="146" rx="12" fill="#eff9f6" stroke="#9bd5c7" stroke-width="3"/>
+<rect x="62" y="36" width="94" height="17" rx="4" fill="#cfe8e1"/><circle cx="72" cy="44" r="4" fill="#18a58a"/><path d="M83 44h63M62 70h92M62 82h82M62 94h83" stroke="#91b8ad" stroke-width="4" stroke-linecap="round"/>
+<rect x="62" y="107" width="75" height="30" rx="5" fill="#dff1eb"/><path d="M72 117h47M72 127h38M62 147h45M62 156h38" stroke="#91b8ad" stroke-width="4" stroke-linecap="round"/></g>
+<circle cx="169" cy="134" r="17" fill="#12ad8b"/><path d="m160 134 6 6 12-14" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+<div class="content"><div class="eyebrow">SERVIÇO 02</div><h2>CRLV</h2><p class="desc">Acesse a área de serviços e informações relacionadas ao documento do veículo.</p><div class="access">Acessar CRLV <span class="arrow">→</span></div></div>
+</a>
+</section><footer>Consultas Veiculares · Serviços e informações em um só lugar</footer></main>
+<div id="crlv-aviso" role="dialog" aria-modal="true" aria-labelledby="aviso-titulo"><div class="aviso-box"><div class="triste">😔</div><h2 id="aviso-titulo">CRLV INDISPONÍVEL NO MOMENTO</h2><p>Infelizmente, no momento não estamos conseguindo realizar a emissão do CRLV.</p><p>Para obter ajuda com a emissão do seu documento, recomendamos procurar um despachante veicular.</p><p>Pedimos desculpas pelo transtorno.</p><button type="button" onclick="fecharAvisoCRLV()">FECHAR</button></div></div>
 <script>
-function abrirAvisoCRLV(){document.getElementById('crlv-aviso').classList.add('ativo');}
-function fecharAvisoCRLV(){document.getElementById('crlv-aviso').classList.remove('ativo');}
+function abrirAvisoCRLV(){document.getElementById('crlv-aviso').style.display='flex';}
+function fecharAvisoCRLV(){document.getElementById('crlv-aviso').style.display='none';}
 document.getElementById('crlv-aviso').addEventListener('click',function(e){if(e.target===this)fecharAvisoCRLV();});
 document.addEventListener('keydown',function(e){if(e.key==='Escape')fecharAvisoCRLV();});
-</script>
-</body>
-</html>
+</script></body></html>
